@@ -1,5 +1,5 @@
 # Intro to Commands
-### In the challenge the user invokes their first command by typing in the command and hitting enter in the terminal. The command will be invoked in the terminal.
+### In the challenge the user invokes their first command i.e "hello".
 
 Flag: pwn.college{Ieswv42nQuGHzh3QQicda3luFuf.QX3YjM1wCO0gjNzEzW}
 
