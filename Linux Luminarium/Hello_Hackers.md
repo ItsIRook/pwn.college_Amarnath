@@ -31,7 +31,12 @@ This challenge required running the `hello` command with one argument: `hackers`
 I entered: `hello hackers`
 and obtained the flag.
 
-![Intro to Arguments](argument.png)
+```
+hacker@hello~intro-to-arguments:~$ hello hackers
+Success! Here is your flag:
+pwn.college{4D7bUAVIqmq2a-ggw-edzo8to7x.QX4YjM1wCO0gjNzEzW}
+hacker@hello~intro-to-arguments:~$
+```
 
 ### 📚 What I Learned
 - How to use **arguments** with commands.  
@@ -49,7 +54,10 @@ In this challenge, the user explores the command history using the arrow keys.
 I pressed the **Up Arrow** key to cycle through previous commands.  
 One of the recalled commands revealed the flag.
 
-![Command History](history.png)
+```
+hacker@hello~command-history:~$ the flag is pwn.college{AeQtBPsIeq1cro1tL5SeTfXrPKv.0lNzEzNxwCO0gjNzEzW}
+hacker@hello~command-history:~$
+```
 
 ### 📚 What I Learned
 - The **Up/Down arrows** allow quick access to previously executed commands.  
