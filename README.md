@@ -1,7 +1,7 @@
 # pwn.college_Amarnath
-#Timeline
+# Timeline
 
-##Day 1–10
+## Day 1–10
 • Hello Hackers
 • Pondering Paths
 • Comprehending Commands
@@ -10,7 +10,7 @@
 • Practicing Piping
 • Shell Variables
 
-##Day 11–20
+## Day 11–20
 • Data Manipulation• Processes and Jobs
 • Untangling Users
 • Perceiving Permissions
