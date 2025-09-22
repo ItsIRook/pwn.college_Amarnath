@@ -7,7 +7,7 @@ pwn.college{Ieswv42nQuGHzh3QQicda3luFuf.QX3YjM1wCO0gjNzEzW}
 ### How I solved
 I solved the given challange by typing in "hello" in the terminal, which then invoked the command and displayed the flag.
 
-![screenshot](Hello Hackers/hello.png)
+![screenshot](hello.png)
 
 ### what I learnt
 I learnt how to invoke a command and that Linux terminal is case sensitive as only "hello" worked not "HELLO".
