@@ -1,41 +1,54 @@
-# Intro to Commands
-### In the challenge the user invokes their first command i.e "hello".
+# 🔹 Intro to Commands
+In this challenge, the user invokes their very first command: `hello`.
 
-* ###  Flag
+### 🏴 Flag
 pwn.college{Ieswv42nQuGHzh3QQicda3luFuf.QX3YjM1wCO0gjNzEzW}
 
-* ### How I solved
-I solved the given challange by typing in "hello" in the terminal, which then invoked the command and displayed the flag.
+### ⚡ How I Solved
+I simply typed `hello` in the terminal.  
+The command was executed and the flag was displayed.
 
-![screenshot](hello.png)
+![Intro to Commands](hello.png)
 
-* ### What I learnt
-I learnt how to invoke a command and that Linux terminal is case sensitive as only "hello" worked not "HELLO".
+### 📚 What I Learned
+- How to invoke a command in Linux.  
+- The terminal is **case-sensitive**: `hello` works, but `HELLO` does not.
 
-# Intro to Argumetns
-### In this challenge user must run hello command with a single argument of hackers.
+---
 
-* ### Flag
+# 🔹 Intro to Arguments
+This challenge required running the `hello` command with one argument: `hackers`.
+
+### 🏴 Flag
 pwn.college{4D7bUAVIqmq2a-ggw-edzo8to7x.QX4YjM1wCO0gjNzEzW}
 
-* ### How I did
-I typed in the command "hello" first and then entered the argument "hackers" to obtain the flag.
+### ⚡ How I Solved
+I entered:
+hello hackers
+and obtained the flag.
 
-![screenshot](argument.png)
+![Intro to Arguments](argument.png)
 
-* ### What I learnt
-I learnt about arguments and how they are used in the terminal and that arguments too are case sensitive.
+### 📚 What I Learned
+- How to use **arguments** with commands.  
+- Arguments are also **case-sensitive**.
 
-# Command History
-### In this challange user scrolls through commands by using up/down arrow keys.
+---
 
-* ### flag
+# 🔹 Command History
+In this challenge, the user explores the command history using the arrow keys.
+
+### 🏴 Flag
 pwn.college{AeQtBPsIeq1cro1tL5SeTfXrPKv.0lNzEzNxwCO0gjNzEzW}
 
-* ### How I did
-I used the up/down arrow keys and up arrow key displayed the flag (which was supposed to be a command).
+### ⚡ How I Solved
+I pressed the **Up Arrow** key to cycle through previous commands.  
+One of the recalled commands revealed the flag.
 
-![screenshot](history.png)
+![Command History](history.png)
 
-* ### What I learnt
-I learnt that using up/down arrow keys can fetch me the commands I used previously.
+### 📚 What I Learned
+- The **Up/Down arrows** allow quick access to previously executed commands.  
+- Useful for avoiding retyping long or repetitive commands.
+
+---
