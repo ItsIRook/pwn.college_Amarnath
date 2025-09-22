@@ -66,4 +66,3 @@ hacker@hello~command-history:~$
 ---
 ### 📑 References
 - I refered to the text available in the module.
-- I used ChatGPT to help me with styling the markdown.
