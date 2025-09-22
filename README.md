@@ -1,19 +1,26 @@
-# pwn.college_Amarnath
-# Timeline
+# pwn.college_Amarnath — Timeline
 
-## Day 1–10
-* Hello Hackers
-* Pondering Paths
-* Comprehending Commands
-* Digesting Documentation
-* File Globbing
-* Practicing Piping
-* Shell Variables
+A concise roadmap of the first 20 days of practice.
 
-## Day 11–20
-* Data Manipulation• Processes and Jobs
-* Untangling Users
-* Perceiving Permissions
-* Chaining Commands
-* Terminal Multiplexing
-* Pondering PATH
+---
+
+## 📅 Day 1–10 — Foundations
+- 🔹 **Hello Hackers**
+- 🔹 **Pondering Paths**
+- 🔹 **Comprehending Commands**
+- 🔹 **Digesting Documentation**
+- 🔹 **File Globbing**
+- 🔹 **Practicing Piping**
+- 🔹 **Shell Variables**
+
+---
+
+## 📅 Day 11–20 — Intermediate Skills
+- 🔸 **Data Manipulation & Processes**
+- 🔸 **Users & Accounts**
+- 🔸 **Permissions**
+- 🔸 **Chaining Commands**
+- 🔸 **Terminal Multiplexing**
+- 🔸 **PATH — Environment & Resolution**
+
+---
