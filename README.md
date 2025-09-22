@@ -4,7 +4,7 @@ A concise roadmap of the first 20 days of practice.
 
 ---
 
-## 📅 Day 1–10 — Foundations
+##  Day 1–10 — Foundations
 - 🔹 **Hello Hackers**
 - 🔹 **Pondering Paths**
 - 🔹 **Comprehending Commands**
