@@ -8,7 +8,10 @@ In this challenge, the user invokes their very first command: `hello`.
 I simply typed `hello` in the terminal.  
 The command was executed and the flag was displayed.
 
-![Intro to Commands](hello.png)
+<pre> ```bashhacker@hello~intro-to-commands:~$ hello
+Success! Here is your flag:
+pwn.college{Ieswv42nQuGHzh3QQicda3luFuf.QX3YjM1wCO0gjNzEzW}
+hacker@hello~intro-to-commands:~$``` </pre>
 
 ### 📚 What I Learned
 - How to invoke a command in Linux.  
