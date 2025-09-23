@@ -189,7 +189,7 @@ In this challenge, you must run run from the /challenge directory. Linux does no
 
 ### 🏴 Flag
 
-pwn.college{E-Q08MPtzdkfJ6TDecp7Dk5CyxY.QXxUTN0wCO0gjNzEzW}
+`pwn.college{E-Q08MPtzdkfJ6TDecp7Dk5CyxY.QXxUTN0wCO0gjNzEzW}`
 
 ### ⚡ How I Solved
 
