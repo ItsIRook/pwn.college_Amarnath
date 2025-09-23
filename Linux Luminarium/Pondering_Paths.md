@@ -183,3 +183,34 @@ hacker@paths~explicit-relative-paths-from-:/$
   - `challenge/.`
 
 ---
+# 🔹 Implicit Relative Paths, From /challenge
+
+In this challenge, you must run run from the /challenge directory. Linux does not search the current directory for programs when you type a naked command name (like run) — that would be unsafe. To explicitly execute a program in the current directory you must use . in the path (for example ./run).
+
+### 🏴 Flag
+
+pwn.college{E-Q08MPtzdkfJ6TDecp7Dk5CyxY.QXxUTN0wCO0gjNzEzW}
+
+### ⚡ How I Solved
+
+- I changed into the `/challenge` directory with cd /challenge. 
+- I invoked the program with an explicit relative path: `./run`.
+- The program ran and printed the flag.
+
+```
+hacker@paths~implicit-relative-path:~$ cd /challenge
+hacker@paths~implicit-relative-path:/challenge$ ./run
+Correct!!!
+./run is a relative path, invoked from the right directory!
+Here is your flag:
+pwn.college{E-Q08MPtzdkfJ6TDecp7Dk5CyxY.QXxUTN0wCO0gjNzEzW}
+hacker@paths~implicit-relative-path:/challenge$
+```
+
+### 📚 What I Learned
+
+- Linux avoids implicitly searching the current directory for commands when you give a naked path (e.g. run) as a safety measure.
+
+- To explicitly execute something in the current directory you must prefix it with `./` (dot-slash).
+
+- `.` refers to the current directory; `..` refers to the parent directory. Using `./program` removes ambiguity and tells the shell you mean the program in the current directory.
