@@ -149,28 +149,37 @@ hacker@paths~implicit-relative-paths-from-:/$
   - If my cwd is /tmp/a/b/c, then a relative path to the file is ../my_file. The .. refers to the parent directory.
 
 ---
-# 🔹 Position Elsewhere
-In this challenege, the user uses cd command to get into `/home` to run the command `run` from `/challenge/run`.
+# 🔹 Explicit Relative paths, from /
+In this challenege, the user uses cd command to get into `/` to run the command `run` from `./challenge/run`(the idea is to use `.`.
 
 ### 🏴 Flag
-`pwn.college{QcAx6VhJYgAusSTeQF6yqIbxq7B.QX4QTN0wCO0gjNzEzW}`
+`pwn.college{sZtVJ2yDVy4Hx5imCCNCcWoR1eQ.QXwUTN0wCO0gjNzEzW}`
 
 ### ⚡ How I Solved
-- I executed `/challenge/run` which displayed that I should be in `/sys/kernel` directory to use the command.
-- I simply typed `cd /sys/kernal` in the terminal.
-- which lead me to the `/sys/kernal`, from there I invoked `/challenge/run`.
-- The command was executed and the flag was displayed.
+- I simply typed `cd /` in the terminal.
+- I invoked `./challenge/run`.
+- The command was executed and the flag was displayed
 
 ```
-hacker@paths~position-yet-elsewhere:~$ cd /sys/kernel
-hacker@paths~position-yet-elsewhere:/sys/kernel$ /challenge/run
+hacker@paths~explicit-relative-paths-from-:~$ cd /
+hacker@paths~explicit-relative-paths-from-:/$ ./challenge/run
 Correct!!!
-/challenge/run is an absolute path, invoked from the right directory!
+./challenge/run is a relative path, invoked from the right directory!
 Here is your flag:
-pwn.college{QcAx6VhJYgAusSTeQF6yqIbxq7B.QX4QTN0wCO0gjNzEzW}
-hacker@paths~position-yet-elsewhere:/sys/kernel$
+pwn.college{sZtVJ2yDVy4Hx5imCCNCcWoR1eQ.QXwUTN0wCO0gjNzEzW}
+hacker@paths~explicit-relative-paths-from-:/$
 ```
 
 ### 📚 What I Learned
-- I learned the usage of `cd` command and in this scenerio I used the command to change directory from current working directory to `/sys/kernal` which contained many files, then I was expected to type in the absolute path for the program `run` to execute it.
+- I learned that in most operating system, every directory has implicit entries that you can reference in paths: `.` and `..`. The first, `.`, refers right to the same directory, so the following absolute paths are identical to each other: 
+  - `/challenge`
+  - `/challenge/.`
+  - `/challenge/./././././././././`
+  - `/./././challenge/././`
+- The following relative paths are also all identical to each other:
+  - `challenge`
+  - `./challenge`
+  - `./././challenge`
+  - `challenge/.`
+
 ---
