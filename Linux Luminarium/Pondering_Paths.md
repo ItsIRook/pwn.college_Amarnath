@@ -183,7 +183,7 @@ hacker@paths~explicit-relative-paths-from-:/$
   - `challenge/.`
 
 ---
-# 🔹 Implicit Relative Paths, From /challenge
+# 🔹 Implicit Relative Paths
 
 In this challenge, you must run run from the /challenge directory. Linux does not search the current directory for programs when you type a naked command name (like run) — that would be unsafe. To explicitly execute a program in the current directory you must use . in the path (for example ./run).
 
@@ -214,3 +214,30 @@ hacker@paths~implicit-relative-path:/challenge$
 - To explicitly execute something in the current directory you must prefix it with `./` (dot-slash).
 
 - `.` refers to the current directory; `..` refers to the parent directory. Using `./program` removes ambiguity and tells the shell you mean the program in the current directory.
+
+---
+# 🔹 Home Sweet Home
+
+In this challenge you must provide an argument (three characters or less before expansion) that expands to an absolute path inside your home directory. Bash expands a leading `~` to your home directory (`/home/hacker`), so `~/a` becomes `/home/hacker/a` and satisfies the constraints.
+
+### 🏴 Flag
+`pwn.college{UerExeWBXmW8YUOK3GcA_dgs_lY.QXzMDO0wCO0gjNzEzW}`
+
+### ⚡ How I Solved
+- I ran the program with an argument that uses ~ as shorthand and is three characters before expansion: `/`challenge/run `~/a`.
+- /challenge/run wrote the flag to `/home/hacker/a` and printed the flag.
+
+```
+hacker@paths~home-sweet-home:~$ /challenge/run ~/a
+Writing the file to /home/hacker/a!
+... and reading it back to you:
+pwn.college{UerExeWBXmW8YUOK3GcA_dgs_lY.QXzMDO0wCO0gjNzEzW}
+hacker@paths~home-sweet-home:~$
+```
+
+### 📚 What I Learned
+- `~` expands to the user’s home directory (/home/hacker) only when it appears at the start of a path.
+- `~` expansion happens before the program sees the argument, so passing `~/a` satisfies an "absolute path" requirement after expansion.
+- cd with no arguments returns you to your home directory; `~` is a convenient shorthand for home.
+
+---
