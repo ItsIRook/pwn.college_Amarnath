@@ -146,3 +146,34 @@ hacker@commands~comparing-files:~$
 * Use `diff` when you need to find differences quickly without manually inspecting large files.
 
 ---
+# 🔹 listing files
+
+`ls` lists directory contents. If you don't know a filename, list the directory and inspect the results.
+
+In this challenge, the `run` program was renamed and placed in `/challenge`. Use `ls /challenge` to find it, then execute it by absolute path.
+
+### 🏴 Flag
+
+`pwn.college{4trZmqFCgASGqK6x5eMG0gCCaA-.QX4IDO0wCO0gjNzEzW}`
+
+### ⚡ How I Solved
+
+* I listed the `/challenge` directory to find the renamed `run` file.
+* I executed the found filename with its absolute path to reveal the flag.
+
+```
+hacker@commands~listing-files:~$ ls /challenge
+12235-renamed-run-23669  DESCRIPTION.md
+hacker@commands~listing-files:~$ /challenge/12235-renamed-run-23669
+Yahaha, you found me! Here is your flag:
+pwn.college{4trZmqFCgASGqK6x5eMG0gCCaA-.QX4IDO0wCO0gjNzEzW}
+hacker@commands~listing-files:~$
+```
+
+### 📚 What I Learned
+
+* `ls` shows files and directories in the given path or the current directory if none is provided.
+* When executables are renamed, listing the directory reveals their names so you can run them.
+* Execute discovered binaries by their path (absolute or relative) to run them.
+
+---
