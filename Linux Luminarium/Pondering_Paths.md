@@ -144,12 +144,12 @@ hacker@paths~implicit-relative-paths-from-:/$
 - I learned how to access a file in some location using relative path.
 - Imagine we want to access some file located at /tmp/a/b/my_file.
 
-  - If my cwd is /, then a relative path to the file is tmp/a/b/my_file.
-  - If my cwd is /tmp, then a relative path to the file is a/b/my_file.
-  - If my cwd is /tmp/a/b/c, then a relative path to the file is ../my_file. The .. refers to the parent directory.
+  - If my cwd is `/`, then a relative path to the file is `tmp/a/b/my_file`.
+  - If my cwd is `/tmp`, then a relative path to the file is `a/b/my_file`.
+  - If my cwd is `/tmp/a/b/c`, then a relative path to the file is `../my_file`. The .. refers to the parent directory.
 
 ---
-# 🔹 Explicit Relative paths, from /
+# 🔹 Explicit Relative Paths, From /
 In this challenege, the user uses cd command to get into `/` to run the command `run` from `./challenge/run`(the idea is to use `.`.
 
 ### 🏴 Flag
