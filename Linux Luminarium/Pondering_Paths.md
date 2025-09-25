@@ -458,6 +458,39 @@ hacker@commands~an-epic-filesystem-quest:/opt/pwndbg/.venv/lib/python3.8/site-pa
 * Combining these commands lets you traverse and inspect the filesystem reliably to find hidden content.
 
 ---
+# 🔹 making directories
+
+Create directories with `mkdir` and files with `touch`. Then place files inside and verify with `ls`.
+
+This challenge asks you to create `/tmp/pwn` and a file `/tmp/pwn/college`, then run `/challenge/run` to confirm and receive the flag.
+
+### 🏴 Flag
+
+`pwn.college{QOkmggG6WPVaIHh38LWyGQF4YNJ.QXxMDO0wCO0gjNzEzW}`
+
+### ⚡ How I Solved
+
+* I created the directory `/tmp/pwn` with `mkdir /tmp/pwn`.
+* I created the file `/tmp/pwn/college` with `touch /tmp/pwn/college`.
+* I ran `/challenge/run`, which checked the presence of the directory and file and printed the flag.
+
+```
+hacker@commands~making-directories:~$ mkdir /tmp/pwn
+hacker@commands~making-directories:~$ touch /tmp/pwn/college
+hacker@commands~making-directories:~$ /challenge/run
+Success! Here is your flag:
+pwn.college{QOkmggG6WPVaIHh38LWyGQF4YNJ.QXxMDO0wCO0gjNzEzW}
+hacker@commands~making-directories:~$
+```
+
+### 📚 What I Learned
+
+* `mkdir <directory>` creates a directory; use `-p` to create parent directories as needed.
+* `touch <file>` creates an empty file (or updates its timestamp).
+* Use `ls` to verify files and directories before running checks.
+
+---
+
 # 🔹 finding files
 
 `find` walks directory trees and lists files that match criteria. By default it searches `.` (the current directory) and prints every file it finds. You can provide a location and a test, for example:
@@ -555,5 +588,34 @@ Notes:
 * `find` is powerful for locating files by name, type, timestamp, size, and many more criteria.
 * When searching the whole filesystem, expect and ignore permission-denied messages.
 * Once you get candidate paths, use `cat` (or `ls -l`) to inspect which ones actually contain the flag.
+
+---
+# 🔹 linking files
+
+A symbolic link points to another file by name. Use `ln -s <target> <link>` to create one. Accessing the symlink follows the path to the target and returns the target's contents.
+
+In this challenge `/challenge/catflag` prints `/home/hacker/not-the-flag`. Create a symlink named `/home/hacker/not-the-flag` that points to `/flag` and `catflag` will print the real flag.
+
+### 🏴 Flag
+
+`pwn.college{IEMXzKe5hLOydFFY9NjSYpDbSIM.QX5ETN1wCO0gjNzEzW}`
+
+### ⚡ How I Solved
+
+* I created a symbolic link pointing `/home/hacker/not-the-flag` at `/flag`.
+* I ran `/challenge/catflag`, which followed the symlink and printed the flag.
+
+```
+ln -s /flag /home/hacker/not-the-flag
+/challenge/catflag
+# -> About to read out the /home/hacker/not-the-flag file!
+# -> pwn.college{IEMXzKe5hLOydFFY9NjSYpDbSIM.QX5ETN1wCO0gjNzEzW}
+```
+
+### 📚 What I Learned
+
+* `ln -s <target> <link>` creates a symlink named `<link>` that points to `<target>`.
+* Programs opening the symlink usually follow it transparently and access the target's contents.
+* Use `file <name>` or `ls -l` to identify symlinks.
 
 ---
