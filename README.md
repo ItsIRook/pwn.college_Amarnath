@@ -15,7 +15,7 @@ A concise roadmap of the first 20 days of practice.
 
 ---
 
-## 📅 Day 11–20 — Intermediate Skills
+##  Day 11–20 — Intermediate Skills
 - 🔸 **Data Manipulation & Processes**
 - 🔸 **Users & Accounts**
 - 🔸 **Permissions**
