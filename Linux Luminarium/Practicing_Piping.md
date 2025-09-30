@@ -241,3 +241,168 @@ pwn.college{YNecvTkmBMczlejiTCAtSVeEEWP.QX1ATO0wCO0gjNzEzW}
 * Some programs may inspect the receiving process; piping to the expected executable (here `grep`) can be required.
 
 ---
+# 🔹 Duplicating piped data with tee
+
+`tee` reads from stdin and writes the input both to stdout and to files you specify. This lets you inspect or save intermediate data while continuing to pipe it to the next command.
+
+In this challenge, `/challenge/pwn` must be piped into `/challenge/college`, but `college` expects a secret provided by `pwn`. Use `tee` to capture `pwn`'s output, inspect it to learn the secret, then re-run the pipeline with that secret.
+
+### 🏴 Flag
+
+`pwn.college{kUsPIihepFGGGdoDCk9hhGuTm03.QXxITO0wCO0gjNzEzW}`
+
+### ⚡ How I Solved
+
+* I piped `/challenge/pwn` through `tee` to capture its output while still passing it to `/challenge/college`:
+
+```
+/challenge/pwn | tee pwn | /challenge/college
+# -> college complains the secret is missing and tee wrote pwn
+```
+
+* I inspected the intercepted file to learn the required secret:
+
+```
+cat pwn
+# -> shows: SECRET_ARG should be "kUsPIihe"
+```
+
+* I re-ran the pipeline, providing the secret to `pwn` so it could forward it to `college`:
+
+```
+/challenge/pwn --secret kUsPIihe | tee pwn | /challenge/college
+# -> Correct! Here is your flag:
+# -> pwn.college{kUsPIihepFGGGdoDCk9hhGuTm03.QXxITO0wCO0gjNzEzW}
+```
+
+### 📚 What I Learned
+
+* `tee` duplicates a stream: it writes to files and also passes the same data along stdout for further piping.
+* Use `tee` to debug pipelines by capturing intermediate outputs without breaking the flow.
+* Inspecting the intercepted output can reveal necessary inputs to other stages of the pipeline.
+
+---
+# 🔹 Process Substitution for output
+
+Process substitution lets you treat the output of a command as a file. Use `<(command)` to create a temporary file-like path (e.g., `/dev/fd/63`) that reads from the command's stdout. This is perfect for utilities that expect filenames — like `diff`.
+
+In this challenge, `/challenge/print_decoys` prints many decoy flags and `/challenge/print_decoys_and_flag` prints the same decoys plus the real flag. Compare their outputs with `diff` using process substitution to find the added line containing the flag.
+
+### 🏴 Flag
+
+`pwn.college{UEXUqjbvVCWIZOMf7_0ytZBQY1g.0lNwMDOxwCO0gjNzEzW}`
+
+### ⚡ How I Solved
+
+* I used process substitution to pass command outputs to `diff` without creating intermediate files.
+
+```
+diff <(/challenge/print_decoys) <(/challenge/print_decoys_and_flag)
+# -> shows the added line with the flag:
+# 84a85
+# > pwn.college{UEXUqjbvVCWIZOMf7_0ytZBQY1g.0lNwMDOxwCO0gjNzEzW}
+```
+
+### 📚 What I Learned
+
+* `<(cmd)` makes a file-like path that reads from `cmd`'s stdout.
+* Use process substitution to compare or combine command outputs without temporary files.
+* It’s especially useful with tools that accept filenames (diff, cat, sort, etc.).
+
+---
+# 🔹 Write to multiple programs
+
+Process substitution can create file-like pipes for commands using `>(command)`. Combined with `tee`, you can duplicate a stream and feed it into multiple commands simultaneously.
+
+In this challenge, `/challenge/hack` produces secret data that must be sent *directly* to both `/challenge/the` and `/challenge/planet`. Use `tee` with output process substitution to feed both commands at once.
+
+### 🏴 Flag
+
+`pwn.college{sJYtPlXDmcfsEZ0B9U3LO_zVKcB.QXwgDN1wCO0gjNzEzW}`
+
+### ⚡ How I Solved
+
+* I piped `/challenge/hack` into `tee` and used `>(...)` to direct copies into the two commands:
+
+```
+/challenge/hack | tee >( /challenge/the ) >( /challenge/planet )
+```
+
+* `tee` wrote the stream to stdout and also to the named pipes created for `/challenge/the` and `/challenge/planet`, delivering the secret to both programs at the same time.
+
+```
+# sample interaction
+/challenge/hack | tee >( /challenge/the ) >( /challenge/planet )
+# -> This secret data must directly and simultaneously make it to /challenge/the and
+#    /challenge/planet. Don't try to copy-paste it; it changes too fast.
+# -> 1215293941289028847
+# -> Congratulations, you have duplicated data into the input of two programs! Here
+#    is your flag:
+# -> pwn.college{sJYtPlXDmcfsEZ0B9U3LO_zVKcB.QXwgDN1wCO0gjNzEzW}
+```
+
+### 📚 What I Learned
+
+* `>(cmd)` creates a writable named pipe connected to `cmd`'s stdin.
+* `tee` can write to files **and** to these `>(...)` targets, duplicating a stream to multiple consumers.
+* This pattern lets you fan-out live data to multiple processors without temporary files.
+
+---
+# 🔹 Split stdout and stderr
+
+You can route stdout and stderr to separate consumers by combining **process substitution** and FD redirection. Use `>(command)` to make a writeable pipe to a command's stdin, and `2>` to redirect stderr.
+
+In this challenge, `/challenge/hack` prints data to both stdout and stderr. Send stdout to `/challenge/planet` and stderr to `/challenge/the` simultaneously.
+
+### 🏴 Flag
+
+`pwn.college{UBLMTclSlhoq6LxwWm4xgqudwqn.QXxQDM2wCO0gjNzEzW}`
+
+### ⚡ How I Solved
+
+* I used process substitution for the targets and redirected stdout and stderr separately:
+
+```bash
+/challenge/hack > >(/challenge/planet) 2> >(/challenge/the)
+# -> Congratulations, you have learned a redirection technique that even experts struggle with!
+# -> Here is your flag:
+# -> pwn.college{UBLMTclSlhoq6LxwWm4xgqudwqn.QXxQDM2wCO0gjNzEzW}
+```
+
+### 📚 What I Learned
+
+* `>(cmd)` creates a writable pipe connected to `cmd`'s stdin.
+* `>` (or `1>`) redirects stdout; `2>` redirects stderr. Combine them with `>(...)` to fan out streams to different commands.
+* This keeps stdout and stderr separate without merging them via `2>&1`.
+
+---
+# 🔹 Named Pipes
+
+FIFOs are filesystem-visible named pipes created with `mkfifo`. They let processes communicate without storing data to disk. Writes to a FIFO block until a reader opens it, and reads block until a writer opens it — handy for synchronization.
+
+In this challenge you must create `/tmp/flag_fifo`, start a reader on it, and redirect the stdout of `/challenge/run` into the FIFO so the program writes the flag into the pipe.
+
+### 🏴 Flag
+
+`pwn.college{ANdNhK03PcuC2yIpS8H7tb-niZH.01MzMDOxwCO0gjNzEzW}`
+
+### ⚡ How I Solved
+
+* Create the FIFO and run a reader in the background, then run `/challenge/run` writing to the FIFO:
+
+```
+mkfifo /tmp/flag_fifo && cat /tmp/flag_fifo &
+/challenge/run > /tmp/flag_fifo
+# or combined:
+mkfifo /tmp/flag_fifo && cat /tmp/flag_fifo & /challenge/run > /tmp/flag_fifo
+```
+
+* Because the FIFO blocks until both sides are open, starting the reader (cat) first or backgrounding it ensures `/challenge/run` can start and write the flag into the FIFO, which `cat` then prints.
+
+### 📚 What I Learned
+
+* `mkfifo path` creates a named pipe visible on the filesystem.
+* FIFOs block until both writer and reader are present, providing automatic synchronization.
+* Use background jobs or multiple terminals to coordinate readers and writers when working with FIFOs.
+
+---
